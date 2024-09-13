@@ -1,0 +1,22 @@
+# Import library
+library(ggplot2)
+library(tibble)
+library(xtibble)
+# Carregando Base de dados
+load(url(description="https://www.ime.usp.br/~pam/dados.RData"))
+
+# Gráficos
+mean(tab2_1$salario)
+sd(tab2_1$salario)
+median(tab2_1$salario)
+summary(tab2_1$salario)
+boxplot(tab2_1$salario)
+hist(tab2_1$salario)
+
+ni<-table(tab2_1$grau_instrucao)
+fi<-prop.table(ni)
+p_fi<-fi*100
+tab2_2<-cbind(ni,fi=round(fi,digits=2),p_fi=round(p_fi,digits=2))
+
+# Gráfico de barras
+barplot(table(tab2_1$grau_instrucao),col="black",)

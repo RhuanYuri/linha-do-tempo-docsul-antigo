@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    .hide {
+        display: none;
+    }
+
+    .modal-bg {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background: gainsboro;
+        opacity: 0.7;
+    }
+
+    .modal-content {
+        position: absolute;
+            margin: 0 auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0px 0px 50px 2px #000;
+            padding-bottom: 5px;
+    }
+
+    .modal-close {
+        font-size: 2rem;
+        line-height: 1;
+        position: absolute;
+        top: 0px;
+        right: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #AAAAAA;
+        font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    }
+</style>
+
+<body>
+    <div>
+        teste
+    </div>
+    
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <button id="btAbrirModal">Abrir Modal</button>
+    <div id="modal" class="hide">
+        <div class="modal-bg"></div>
+        <div class="modal-content">
+            <h3>Hello World</h3>
+            <a class="modal-close">&#215;</a>
+        </div>
+    </div>
+
+    <script>
+        var btAbrirModal = $("#btAbrirModal");
+        var modal = $("#modal");
+        var modalClose = $("#modal .modal-close");
+        var modalBackground = $("#modal .modal-bg");
+
+        btAbrirModal.click(function () {
+            modal.fadeIn(500);
+        });
+
+        modalClose.click(function () {
+            modal.fadeOut(500);
+        });
+
+//Caso queira que o dialogo feche ao realizar um click fora dele.
+//
+//modalBackground.click(function () {
+//    modal.fadeOut(500);
+//});
+    </script>
+</body>
+
+</html>

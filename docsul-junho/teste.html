@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="download01">
+        <p>01</p>
+
+    </div>
+    
+    <p id="download02">02</p>
+    <p id="download03">03</p>
+    <input type="button" value="Criar PDF" id="btnImprimir" onclick="texto()" />
+    <script type="text/javascript" src="./js/download-texto.js"></script>
+    <script>
+        ids = ['download01']
+    function texto(){
+    var textList = []
+    var string 
+    for(var i = 0; i < ids.length; i++ ){
+        try{
+            string = document.getElementById(ids[i]).innerHTML
+            console.log(string)
+
+        }catch (e){
+            string = 'erro'
+        }
+        
+        textList.push(string)
+    }
+    
+        win.document.write('<html><head>')
+        win.document.write('<title>teste</title>')   // <title> CABEÇALHO DO PDF.
+        //win.document.write(style)                       // INCLUI UM ESTILO NA TAB HEAD
+        win.document.write('</head>')
+        win.document.write('<body>')
+        for(var i = 0; i < textList.length; i++ ){
+        win.document.write(textList[i])                  // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+        win.document.write('</body></html>')
+
+        win.document.close() 	                            // FECHA A JANELA
+
+        win.print()
+        
+        
+    
+
+}
+    </script>
+    
+</body>
+</html>
