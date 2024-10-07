@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leitor de Texto para Cegos</title>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+    <style>
+        /* Estilo para destacar o texto selecionado */
+        .selecionado {
+            background-color: yellow;
+        }
+
+        /* Estilo para o botão flutuante */
+        .botao-flutuante {
+            position: fixed;
+            top: 50%; /* Ajuste a posição vertical conforme necessário */
+            right: 10px; /* Ajuste a posição horizontal conforme necessário */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="botaoLeitura" class="botao-flutuante" onclick="ativarLeitura()">Ler</button>
+    <div id="conteudo">
+        <p id="textoParaLeitura">Clique para ler o texto em voz alta.</p>
+    </div>
+
+    <script>
+        let leituraAtiva = false; // Variável para controlar a ativação da leitura
+
+        function ativarLeitura() {
+            leituraAtiva = true;
+        }
+
+        document.getElementById("textoParaLeitura").addEventListener("click", function() {
+            if (leituraAtiva) {
+                var textoParaLeitura = document.getElementById("textoParaLeitura");
+
+                // Seleciona o texto para leitura
+                var texto = textoParaLeitura.textContent;
+
+                // Configura a voz e inicia a síntese usando ResponsiveVoice
+                responsiveVoice.speak(texto, "Brazilian Portuguese Female");
+
+                // Destacar o texto selecionado
+                textoParaLeitura.classList.add("selecionado");
+
+                // Remover o destaque após um curto período
+                setTimeout(function() {
+                    textoParaLeitura.classList.remove("selecionado");
+                }, 1000); // 1000 milissegundos = 1 segundo
+
+                leituraAtiva = false; // Desativa a leitura após a primeira execução
+            }
+        });
+    </script>
+</body>
+</html>

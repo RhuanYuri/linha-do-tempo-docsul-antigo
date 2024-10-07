@@ -1,0 +1,156 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            display: block;
+            height: 2500px;
+        }
+
+        #myBtn {
+
+
+    position: fixed;
+
+    max-width: 100vw;
+    min-height: 40px;
+    min-width: 40px;
+    right: 0;
+    margin-right: 0.5%;
+    top: 60%;
+    transform: translateY(-50%);
+    z-index: 2147483647 !important;
+    color: #ffffff;
+    background-color: #007BFF;
+    line-height: 1.3;
+    font-size: 16px;
+    border-radius: 8px;
+
+
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+  
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      </script>
+    <p>Role para baixo</p>
+    <button onclick="ativarSelecao()" id="myBtn"><img src="./img/icone_acessibilidade/descricao-de-audio.svg" width="30px" alt="" srcset=""></button>
+
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=xU08LlIK"></script>
+
+    <script src="./js/voz.js" ></script>
+
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção e Destaque de Texto</title>
+    <style>
+        .highlight {
+            background-color: rgb(0, 153, 255);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="botaoSelecao" onclick="alternarSelecao()">Ativar Seleção e Destaque</button>
+
+    <p>Este é o primeiro parágrafo.</p>
+    <p>Este é o segundo parágrafo.</p>
+    <p>Este é o terceiro parágrafo.</p>
+
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=xU08LlIK"></script>
+
+    <script>
+        var selecaoAtivada = false;
+
+        function destacarAoPassarMouse(event) {
+            if (selecaoAtivada) {
+                var paragrafoClicado = event.target;
+
+                // Remover destaque dos parágrafos anteriores
+                removeHighlight();
+
+                // Destacar o parágrafo ao passar o mouse
+                paragrafoClicado.classList.add("highlight");
+            }
+        }
+
+        function removerDestaqueAoSairMouse() {
+            if (selecaoAtivada) {
+                // Remover destaque ao sair do parágrafo
+                removeHighlight();
+            }
+        }
+
+        function selecionarTexto(event) {
+            if (selecaoAtivada) {
+                var targetElement = event.target;
+                var range = document.createRange();
+                range.selectNode(targetElement);
+                window.getSelection().removeAllRanges(); // Limpa a seleção anterior
+                window.getSelection().addRange(range); // Adiciona a nova seleção
+                document.execCommand('copy'); // Copia o texto selecionado para a área de transferência
+                window.getSelection().removeAllRanges(); // Limpa a seleção após a cópia (opcional)
+                responsiveVoice.speak(targetElement.textContent, 'Brazilian Portuguese Female', {rate:1})
+                console.log(targetElement.textContent);
+                
+                // Adicione aqui a lógica para falar o texto, no seu caso, o código do responsiveVoice.speak
+            }
+        }
+
+        function removeHighlight() {
+            var paragrafosDestacados = document.querySelectorAll(".highlight");
+            paragrafosDestacados.forEach(function (paragrafoDestacado) {
+                paragrafoDestacado.classList.remove("highlight");
+            });
+        }
+
+        function alternarSelecao() {
+            selecaoAtivada = !selecaoAtivada;
+            var botao = document.getElementsByClassName("buttaonAudio")
+            botao.textContent = selecaoAtivada ? "Desativar Seleção e Destaque" : "Ativar Seleção e Destaque";
+
+            var paragrafos = document.querySelectorAll("p");
+            paragrafos.forEach(function (paragrafo) {
+                if (selecaoAtivada) {
+                    paragrafo.addEventListener("mouseover", destacarAoPassarMouse);
+                    paragrafo.addEventListener("mouseout", removerDestaqueAoSairMouse);
+                    paragrafo.addEventListener("click", selecionarTexto);
+                } else {
+                    paragrafo.removeEventListener("mouseover", destacarAoPassarMouse);
+                    paragrafo.removeEventListener("mouseout", removerDestaqueAoSairMouse);
+                    paragrafo.removeEventListener("click", selecionarTexto);
+                }
+            });
+        }
+    </script>
+
+    <!-- Adicione aqui o script do responsiveVoice.js, se necessário -->
+
+</body>
+</html>
